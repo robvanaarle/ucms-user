@@ -14,7 +14,7 @@
 	  ],
     "require": {
         "robvanaarle/ultimo-config-mvc": "dev-master",
-        "robvanaarle/ultimo-uorm-mvc": "dev-master",
+        "robvanaarle/ultimo-orm-mvc": "dev-master",
         "robvanaarle/ultimo-form-mvc": "dev-master",
         "robvanaarle/ultimo-acl-mvc": "dev-master",
         "robvanaarle/ultimo-phptpl-mvc": "dev-master",
