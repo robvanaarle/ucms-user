@@ -19,7 +19,7 @@
         "robvanaarle/ultimo-acl-mvc": "dev-master",
         "robvanaarle/ultimo-phptpl-mvc": "dev-master",
         "robvanaarle/ultimo-translate-mvc": "dev-master",
-        "robvanaarle/ultimo-validation-mvc": "dev-master"
+        "robvanaarle/ultimo-validation": "dev-master"
     },
     "autoload": {
     		"psr-4": {
