@@ -1,0 +1,11 @@
+<h3>User - login</h3>
+<input type="hidden" name="form[returnUrl]" value="<?php echo $this->form['returnUrl']?>" />
+<form method="post" action="">
+Username:<br />
+<input type="text" name="form[username]" /><br /><br />
+Password:<br />
+<input type="text" name="form[password]" /><br /><br />
+<input type="submit" name="Login" value="Login" />
+</form>
+
+<?php echo $this->authorizer()->getUser()->getRole() ?>

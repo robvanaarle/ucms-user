@@ -1,0 +1,20 @@
+<h3>Users</h3>
+
+<?php if ($this->authorizer()->isAllowed('user.create')): ?>
+  <br /><a href="<?php echo $this->url(array('action' => 'create'))?>">create</a>
+<?php endif ?>
+
+<table>
+  <tr>
+    <th>Username</th>
+    <th>Role</th>
+    <th>Last login</th>
+  </tr>
+  <?php foreach ($this->users as $user): ?>
+  <tr>
+    <td><a href="<?php echo $this->url(array('action' => 'read', 'id' => $user['id']))?>"><?php echo $this->escape($user['username'])?></a></td>
+    <td><?php echo $this->escape($user['role'])?></td>
+    <td><?php echo $this->escape($user['last_login'])?></td>
+  </tr>
+  <?php endforeach ?>
+</table>

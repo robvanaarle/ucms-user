@@ -1,0 +1,48 @@
+<form method="post" action="<?php echo $this->url(array('action' => $this->action))?>">
+  
+  <input type="hidden" name="id" value="<?php echo $this->id ?>" />
+  
+  <dl>
+    <dt><label for="username">Username</label></dt>
+    <dd>
+      <?php echo $this->error($this->form, 'username')?>
+      <input type="text" name="form[username]" id="username" value="<?php echo $this->escape($this->form['username'])?>" />
+    </dd>
+  </dl>
+  
+  <dl>
+    <dt><label for="password">Password</label></dt>
+    <dd>
+      <?php echo $this->error($this->form, 'password')?>
+      <input type="password" name="form[password]" id="password" value="<?php echo $this->escape($this->form['password'])?>" />
+    </dd>
+  </dl>
+  
+  <dl>
+    <dt><label for="password_repeat">New Password</label></dt>
+    <dd>
+      <?php echo $this->error($this->form, 'password_repeat')?>
+      <input type="password" name="form[password_repeat]" id="password_repeat" value="<?php echo $this->escape($this->form['password_repeat'])?>" />
+    </dd>
+  </dl>
+  
+  <dl>
+    <dt><label for="role">Role</label></dt>
+    <dd>
+      <?php echo $this->error($this->form, 'role')?>
+      <?php echo $this->widget('Select', array(
+        'id' => 'role',
+        'name' => 'form[role]',
+        'value' => $this->form['role'],
+        'values' => $this->form['roles'],
+        'texts' => $this->form['roles']
+      )) ?>
+    </dd>
+  </dl>
+  
+  <dl>
+    <dd>
+      <input type="submit" value="<?php echo $this->action?>" />
+    </dd>
+  </dl>
+</form>

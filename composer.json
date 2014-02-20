@@ -1,0 +1,30 @@
+{
+    "name": "robvanaarle/ucms-user",
+    "description": "Usermanagement module for Ultimo MVC",
+    "type": "library",
+    "keywords": [
+        "usermanagement",
+        "UltimoMVC"
+    ],
+    "license": "BSD-3-Clause",
+    "authors": [
+	  		{
+	    	  "name": "Rob van Aarle"
+	  		}
+	  ],
+    "require": {
+        "robvanaarle/ultimo-config-mvc": "dev-master",
+        "robvanaarle/ultimo-uorm-mvc": "dev-master",
+        "robvanaarle/ultimo-form-mvc": "dev-master",
+        "robvanaarle/ultimo-acl-mvc": "dev-master",
+        "robvanaarle/ultimo-phptpl-mvc": "dev-master",
+        "robvanaarle/ultimo-translate-mvc": "dev-master",
+        "robvanaarle/ultimo-validation-mvc": "dev-master"
+    },
+    "autoload": {
+    		"psr-4": {
+       			"ucms\\": "src/ucms/"
+    		}
+  }
+}
+

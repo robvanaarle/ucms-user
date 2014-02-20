@@ -1,0 +1,40 @@
+<form method="post" action="<?php echo $this->url(array('action' => 'update'))?>">
+  
+  <dl>
+    <dt><label for="username">Username</label></dt>
+    <dd>
+      <?php echo $this->error($this->form, 'username')?>
+      <input type="text" name="form[username]" id="username" value="<?php echo $this->escape($this->form['username'])?>" />
+    </dd>
+  </dl>
+  
+  <dl>
+    <dt><label for="password">New password</label></dt>
+    <dd>
+      <?php echo $this->error($this->form, 'password')?>
+      <input type="password" name="form[password]" id="password" value="<?php echo $this->escape($this->form['password'])?>" />
+    </dd>
+  </dl>
+  
+  <dl>
+    <dt><label for="password_repeat">New password (repeat)</label></dt>
+    <dd>
+      <?php echo $this->error($this->form, 'password_repeat')?>
+      <input type="password" name="form[password_repeat]" id="password_repeat" value="<?php echo $this->escape($this->form['password_repeat'])?>" />
+    </dd>
+  </dl>
+  
+  <dl>
+    <dt><label for="password_current">Current password</label></dt>
+    <dd>
+      <?php echo $this->error($this->form, 'password_current')?>
+      <input type="password" name="form[password_current]" id="password" value="<?php echo $this->escape($this->form['password_current'])?>" />
+    </dd>
+  </dl>
+  
+  <dl>
+    <dd>
+      <input type="submit" value="Update" />
+    </dd>
+  </dl>
+</form>

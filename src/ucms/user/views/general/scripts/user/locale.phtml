@@ -1,0 +1,21 @@
+<h3>User - locale</h3>
+<form method="post" action="<?php echo $this->url()?>">
+  <dl>
+    <dt><label for="locale">Locale</label></dt>
+    <dd>
+      <?php echo $this->error($this->form, 'locale')?>
+      <?php echo $this->widget('Select', array(
+        'id' => 'locale',
+        'name' => 'form[locale]',
+        'value' => $this->form['locale'],
+        'values' => $this->form->getConfig('availableLocales'),
+        'texts' => $this->form->getConfig('availableLocales')
+      )) ?>
+    </dd>
+  </dl>
+    <dl>
+    <dd>
+      <input type="submit" value="Change" />
+    </dd>
+  </dl>
+</form>

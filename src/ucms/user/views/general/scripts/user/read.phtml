@@ -1,0 +1,12 @@
+<h3>User</h3>
+Username: <?php echo $this->user['username'] ?><br />
+Role: <?php echo $this->user['role'] ?><br />
+Last login: <?php echo $this->user['last_login'] ?><br />
+
+<a href="<?php echo $this->url(array('action' => 'index'))?>">index</a>
+<?php if ($this->authorizer()->isAllowed('user.update')): ?>
+  | <a href="<?php echo $this->url(array('action' => 'update', 'id' => $this->user['id']))?>">update</a>
+<?php endif ?>
+<?php if ($this->authorizer()->isAllowed('user.delete')): ?>
+  | <a href="<?php echo $this->url(array('action' => 'delete', 'id' => $this->user['id']))?>">delete</a>
+<?php endif ?>
