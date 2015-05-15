@@ -7,28 +7,30 @@ class User extends \ultimo\orm\Model implements \ultimo\security\mvc\User {
   public $role;
   public $username;
   public $password;
+  public $salt;
   public $last_login;
 	
-  static protected $fields = array('id', 'role', 'username', 'password', 'last_login');
+  static protected $fields = array('id', 'role', 'username', 'password', 'salt', 'last_login');
   static protected $primaryKey = array('id');
   static protected $autoIncrementField = 'id';
   static protected $scopes = array('byUsername', 'byPassword');
   static protected $plugins = array('Timestamps');
   
-  static public function hashPassword($manager, $password) {
+  static public function hashPassword($manager, $password, $salt) {
     $config = $manager->getModule()->getPlugin('config')->getConfig('general');
     
-    switch ($config['password']['hash']['method']) {
-      case 'md5':
-        return md5($config['password']['hash']['salt'] . $password);
-      case 'sha1':
-        return md5($config['password']['hash']['salt'] . $password);
-      case 'crc32':
-        return crc32($config['password']['hash']['salt'] . $password);
-      case 'none':
-        return $password;
-      default:
-  	throw new Exception("Unknown hash method: '{$config['password']['hash']['method']}'");
+    $method = $config['password']['hash']['method'];
+    if ($method == 'none') {
+      return $password;
+    }
+    
+    if (!in_array($method, hash_algos())) {
+      throw new \Exception("Unknown hash method: {$method}");
+    }
+    
+    $runs = $config['password']['hash']['runs'];
+    while($runs--) {
+      $password = hash($method, $config['password']['hash']['salt'] . $salt . $password);
     }
     
     return $password;
@@ -37,11 +39,10 @@ class User extends \ultimo\orm\Model implements \ultimo\security\mvc\User {
   static public function login($manager, $username, $password) {
     $user = $manager->select('User')
                     ->where('@username = ?', array($username))
-                    ->where('@password = ?', array(static::hashPassword($manager, $password)))
                     ->limit(0, 1)
                     ->first();
     
-    if ($user === null) {
+    if ($user === null || !$user->verifyPassword($password)) {
       return false;
     }
     
@@ -54,8 +55,17 @@ class User extends \ultimo\orm\Model implements \ultimo\security\mvc\User {
     return true;
   }
   
+  protected function generateSalt() {
+    $this->salt = base64_encode(mcrypt_create_iv(64));
+  }
+  
   public function setPassword($password) {
-    $this->password = static::hashPassword($this->_manager, $password);
+    $this->generateSalt();
+    $this->password = static::hashPassword($this->_manager, $password, $this->salt);
+  }
+  
+  public function verifyPassword($password) {
+    return strcmp($this->password, static::hashPassword($this->_manager, $password, $this->salt)) == 0;
   }
   
   public function authorize() {
@@ -64,7 +74,7 @@ class User extends \ultimo\orm\Model implements \ultimo\security\mvc\User {
     // Remove manager, as this User will be stored in session. Managers contain a PDOConnection that cannot be serialized.
     $this->setManager(null);
   }
-  
+    
   static public function byUsername($username) {
     return function ($q) use ($username) {
       $q->where('@username = ?', array($username));
@@ -77,7 +87,7 @@ class User extends \ultimo\orm\Model implements \ultimo\security\mvc\User {
       $q->where('@password = ?', array($class::hashPassword($q->getManager(), $password)));
     }; 
   }
-    
+  
   public function getId() {
     return $this->id;
   }

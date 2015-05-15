@@ -1,6 +1,8 @@
 <form method="post" action="<?php echo $this->url(array('action' => $this->action))?>">
   
+  <?php if ($this->action == 'update'): ?>
   <input type="hidden" name="id" value="<?php echo $this->id ?>" />
+  <?php endif ?>
   
   <dl>
     <dt><label for="username">Username</label></dt>
