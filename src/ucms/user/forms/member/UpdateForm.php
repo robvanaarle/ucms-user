@@ -44,8 +44,8 @@ class UpdateForm extends \ultimo\form\mvc\Form {
     
     $this->appendValidator('password_current', 'Callback', array(function($value) use ($form, $manager, $currentUser) {
       // current password must match of that in db
-      $user = $manager->User->byId($currentUser->id)->byPassword($value)->first();
-      if ($user === null) {
+      $user = $manager->User->byId($currentUser->id)->first();
+      if ($user === null || !$user->verifyPassword($value)) {
         $form['password_current'] = $form['password_current_repeat'] = '';
         return 'password_current.invalid';
       }

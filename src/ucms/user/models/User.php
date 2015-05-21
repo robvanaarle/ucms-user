@@ -13,7 +13,7 @@ class User extends \ultimo\orm\Model implements \ultimo\security\mvc\User {
   static protected $fields = array('id', 'role', 'username', 'password', 'salt', 'last_login');
   static protected $primaryKey = array('id');
   static protected $autoIncrementField = 'id';
-  static protected $scopes = array('byUsername', 'byPassword');
+  static protected $scopes = array('byUsername');
   static protected $plugins = array('Timestamps');
   
   static public function hashPassword($manager, $password, $salt) {
@@ -78,13 +78,6 @@ class User extends \ultimo\orm\Model implements \ultimo\security\mvc\User {
   static public function byUsername($username) {
     return function ($q) use ($username) {
       $q->where('@username = ?', array($username));
-    }; 
-  }
-  
-  static public function byPassword($password) {
-    $class = get_called_class();
-    return function ($q) use ($password, $class) {
-      $q->where('@password = ?', array($class::hashPassword($q->getManager(), $password)));
     }; 
   }
   
