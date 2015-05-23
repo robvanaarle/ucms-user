@@ -3,13 +3,13 @@ Usermanagement module for Ultimo MVC
 
 ## Requirements
 * PHP 5.3
-* Ultimo Config MVC
-* Ultimo ORM MVC
-* Ultimo Form MVC
-* Ultimo ACL MVC
-* Ultimo Phptpl MVC
-* Ultimo Translate MVC
-* Ultimo Validation MVC
+* Ultimo MVC Config
+* Ultimo MVC ORM
+* Ultimo MVC Form
+* Ultimo MVC ACL
+* Ultimo MVC Phptpl
+* Ultimo MVC Translate
+* Ultimo MVC Validation
 
 ## Features
 * Login / logout
